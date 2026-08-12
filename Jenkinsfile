@@ -18,6 +18,7 @@ pipeline {
                 dependencyCheck additionalArguments: '''
                     --scan ./
                     --format HTML
+                    --disableUpdate
                     --cveUrlModified file:///var/jenkins_home/tools/nvd_data/CVE-Modified.json
                     --cveUrlBase file:///var/jenkins_home/tools/nvd_data/CVE-%d.json
                 ''', odcInstallation: 'db-check'

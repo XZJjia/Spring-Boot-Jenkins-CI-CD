@@ -8,7 +8,7 @@ This repository contains a sample Spring Boot application integrated with a CI/C
 - Spring Boot (Application framework)
 - Maven (Build automation)
 - OWASP Dependency Check (Security scanning)
-- SonarQube (Code quality analysis)
+- SonarQube (Code quality analysis)——————————admin/!QAZ2wsx3edc
 - Docker (Containerization)
 - Trivy (Container security scanning)
 - Docker Compose (Container orchestration)

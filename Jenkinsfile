@@ -15,21 +15,24 @@ pipeline {
         
         stage('OWASP Dependency Check') {
             steps {
-                sh '/var/jenkins_home/tools/org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation/db-check/bin/dependency-check.sh --version'
-                dependencyCheck additionalArguments: '''
-                    --scan ./
-                    --format HTML
-                    --noupdate
-                    --cveUrlModified file:///var/jenkins_home/tools/nvd_data/CVE-Modified.json
-                    --cveUrlBase file:///var/jenkins_home/tools/nvd_data/CVE-%d.json
-                ''', odcInstallation: 'db-check'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                dependencyCheck(
+                    additionalArguments: '''
+                        --scan ./
+                        --format XML
+                        --noupdate
+                    ''',
+                    odcInstallation: 'db-check'
+                )
+        
+                dependencyCheckPublisher(
+                    pattern: '**/dependency-check-report.xml'
+                )
             }
         }
         stage('Sonarqube Analysis') {
             steps {
                 sh ''' mvn sonar:sonar \
-                    -Dsonar.host.url=http://localhost:9000/ \
+                    -Dsonar.host.url=http://172.17.128.1:9000/ \
                     -Dsonar.login=sqp_72acf2e3bfaeb8d37a0812b40827d4fe14af81ef'''
             }
         }

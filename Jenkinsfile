@@ -18,8 +18,8 @@ pipeline {
                 dependencyCheck additionalArguments: '''
                     --scan ./
                     --format HTML
-                    --cveUrlModified file:///var/jenkins_home/tools/nvd_data/nvd_data/CVE-Modified.json
-                    --cveUrlBase file:///var/jenkins_home/tools/nvd_datanvd_data/CVE-%d.json
+                    --cveUrlModified file:///var/jenkins_home/tools/nvd_data/CVE-Modified.json
+                    --cveUrlBase file:///var/jenkins_home/tools/nvd_data/CVE-%d.json
                 ''', odcInstallation: 'db-check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }

@@ -15,7 +15,7 @@ pipeline {
         
         stage('OWASP Dependency Check') {
             steps {
-                sh '/var/jenkins_home/tools/dependency-check/bin/dependency-check.sh --version'
+                sh '/var/jenkins_home/tools/org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation/db-check/bin/dependency-check.sh --version'
                 dependencyCheck additionalArguments: '''
                     --scan ./
                     --format HTML

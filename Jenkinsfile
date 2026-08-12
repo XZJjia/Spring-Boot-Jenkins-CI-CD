@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     tools{
-        jdk 'jdk17'
-        maven 'maven3'
+        jdk 'JDK21'
+        maven 'Maven3.9'
     }
 
     stages {
         stage('Code Checkout') {
             steps {
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/AbderrahmaneOd/Spring-Boot-Jenkins-CI-CD'
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/XZJjia/Spring-Boot-Jenkins-CI-CD'
             }
         }
         

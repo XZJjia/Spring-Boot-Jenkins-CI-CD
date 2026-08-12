@@ -13,13 +13,17 @@ pipeline {
             }
         }
         
-        stage('OWASP Dependency Check'){
-            steps{
-                dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'db-check'
+        stage('OWASP Dependency Check') {
+            steps {
+                dependencyCheck additionalArguments: '''
+                    --scan ./
+                    --format HTML
+                    --cveUrlModified file:///var/jenkins_home/tools/nvd_data/nvd_data/CVE-Modified.json
+                    --cveUrlBase file:///var/jenkins_home/tools/nvd_datanvd_data/CVE-%d.json
+                ''', odcInstallation: 'db-check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-
         stage('Sonarqube Analysis') {
             steps {
                 sh ''' mvn sonar:sonar \

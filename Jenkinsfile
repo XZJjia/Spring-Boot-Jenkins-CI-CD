@@ -12,14 +12,32 @@ pipeline {
                 git branch: 'main', changelog: false, poll: false, url: 'https://github.com/XZJjia/Spring-Boot-Jenkins-CI-CD'
             }
         }
+        stage('Debug Dependency Check') {
+            steps {
+                sh '''
+                    echo "===== WORKSPACE ====="
+                    pwd
         
+                    echo "===== FILES ====="
+                    find . -maxdepth 3 -type f | sort
+        
+                    echo "===== POM ====="
+                    ls -lh pom.xml
+        
+                    echo "===== MAVEN DEPENDENCY TREE ====="
+                    mvn dependency:tree
+                '''
+            }
+        }
         stage('OWASP Dependency Check') {
             steps {
                 dependencyCheck(
                     additionalArguments: '''
-                        --scan ./
+                        --scan .
                         --format XML
+                        --format HTML
                         --noupdate
+                        --project "Spring Boot Jenkins CICD"
                     ''',
                     odcInstallation: 'db-check'
                 )

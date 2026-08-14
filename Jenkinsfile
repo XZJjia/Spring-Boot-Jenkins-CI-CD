@@ -79,18 +79,20 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'DockerHub-Token', toolName: 'docker') {
+        
                         def imageName = "spring-boot-prof-management"
-                        def buildTag = "${imageName}:${BUILD_NUMBER}"
+                        def imageTag = "${imageName}:${BUILD_NUMBER}"
                         def latestTag = "${imageName}:latest"
         
                         sh "docker build -t ${imageName} -f Dockerfile.final ."
-                        sh "docker tag ${imageName} dockerxzj/${buildTag}"
+        
+                        sh "docker tag ${imageName} dockerxzj/${imageTag}"
                         sh "docker tag ${imageName} dockerxzj/${latestTag}"
         
-                        sh "docker push dockerxzj/${buildTag}"
+                        sh "docker push dockerxzj/${imageTag}"
                         sh "docker push dockerxzj/${latestTag}"
         
-                        env.IMAGE_TAG = buildTag
+                        env.IMAGE_TAG = imageTag
                     }
                 }
             }

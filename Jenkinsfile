@@ -40,8 +40,13 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv() {
-                    sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Spring-Boot-Jenkins-CI-CD -Dsonar.projectName='Spring Boot Jenkins CI/CD'"
+                withSonarQubeEnv('sonarqube') {
+                    sh '''
+                        mvn clean verify \
+                        org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+                        -Dsonar.projectKey=Spring-Boot-Jenkins-CI-CD \
+                        -Dsonar.projectName="Spring Boot Jenkins CI/CD"
+                    '''
                 }
             }
         }

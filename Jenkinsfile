@@ -39,8 +39,10 @@ pipeline {
         }*/
         
         stage('SonarQube Analysis') {
-            withSonarQubeEnv() {
-                sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Spring-Boot-Jenkins-CI-CD -Dsonar.projectName='Spring Boot Jenkins CI/CD'"
+            steps {
+                withSonarQubeEnv() {
+                    sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Spring-Boot-Jenkins-CI-CD -Dsonar.projectName='Spring Boot Jenkins CI/CD'"
+                }
             }
         }
         stage('Clean & Package'){

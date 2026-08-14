@@ -38,7 +38,7 @@ pipeline {
             }
         }*/
         stage('SonarQube Analysis') {
-            def mvn = tool 'Maven3.9';
+            def mvn = tool 'maven';
             withSonarQubeEnv() {
               sh "${mvn}/bin/mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Spring-Boot-Jenkins-CI-CD -Dsonar.projectName='Spring Boot Jenkins CI/CD'"
             }

@@ -101,10 +101,8 @@ pipeline {
         stage('Vulnerability scanning') {
             steps {
                 sh '''
-                    docker run --rm \
-                        -v /var/run/docker.sock:/var/run/docker.sock \
-                        aquasec/trivy:latest \
-                        image dockerxzj/${IMAGE_TAG}
+                    docker exec trivy \
+                        trivy image dockerxzj/${IMAGE_TAG}
                 '''
             }
         }

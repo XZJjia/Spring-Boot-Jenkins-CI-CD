@@ -86,8 +86,8 @@ pipeline {
                         sh "docker build -t ${imageName} -f Dockerfile.final ."
                         sh "docker tag ${imageName} abdeod/${buildTag}"
                         sh "docker tag ${imageName} abdeod/${latestTag}"  // Tag with latest
-                        sh "docker push abdeod/${buildTag}"
-                        sh "docker push abdeod/${latestTag}"  // Push latest tag
+                        sh "docker push dockerxzj/${buildTag}"
+                        sh "docker push dockerxzj/${latestTag}"  // Push latest tag
                         env.BUILD_TAG = buildTag
                     }
                         

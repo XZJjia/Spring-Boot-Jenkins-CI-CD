@@ -15,7 +15,7 @@ services:
     restart: always
 
   backend:
-    image: abdeod/spring-boot-prof-management:latest
+    image: dockerxzj/spring-boot-prof-management:latest
     ports:
     - "8085:8085"
     depends_on:

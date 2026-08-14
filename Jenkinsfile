@@ -80,15 +80,15 @@ pipeline {
                 script{
                     withDockerRegistry(credentialsId: 'DockerHub-Token', toolName: 'docker') {
                         def imageName = "spring-boot-prof-management"
-                        def buildTag = "${imageName}:${BUILD_NUMBER}"
+                        def IMAGE_TAG = "${imageName}:${BUILD_NUMBER}"
                         def latestTag = "${imageName}:latest"  // Define latest tag
                         
                         sh "docker build -t ${imageName} -f Dockerfile.final ."
-                        sh "docker tag ${imageName} dockerxzj/${buildTag}"
+                        sh "docker tag ${imageName} dockerxzj/${IMAGE_TAG}"
                         sh "docker tag ${imageName} dockerxzj/${latestTag}"  // Tag with latest
-                        sh "docker push dockerxzj/${buildTag}"
+                        sh "docker push dockerxzj/${IMAGE_TAG}"
                         sh "docker push dockerxzj/${latestTag}"  // Push latest tag
-                        env.BUILD_TAG = buildTag
+                        env.BUILD_TAG = IMAGE_TAG
                     }
                         
                 }
@@ -97,7 +97,7 @@ pipeline {
         
         stage('Vulnerability scanning'){
             steps{
-                sh " trivy image dockerxzj/${buildTag}"
+                sh " trivy image dockerxzj/${env.IMAGE_TAG}"
             }
         }
 

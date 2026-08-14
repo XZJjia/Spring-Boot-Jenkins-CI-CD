@@ -84,8 +84,8 @@ pipeline {
                         def latestTag = "${imageName}:latest"  // Define latest tag
                         
                         sh "docker build -t ${imageName} -f Dockerfile.final ."
-                        sh "docker tag ${imageName} abdeod/${buildTag}"
-                        sh "docker tag ${imageName} abdeod/${latestTag}"  // Tag with latest
+                        sh "docker tag ${imageName} dockerxzj/${buildTag}"
+                        sh "docker tag ${imageName} dockerxzj/${latestTag}"  // Tag with latest
                         sh "docker push dockerxzj/${buildTag}"
                         sh "docker push dockerxzj/${latestTag}"  // Push latest tag
                         env.BUILD_TAG = buildTag
@@ -97,7 +97,7 @@ pipeline {
         
         stage('Vulnerability scanning'){
             steps{
-                sh " trivy image abdeod/${buildTag}"
+                sh " trivy image dockerxzj/${buildTag}"
             }
         }
 

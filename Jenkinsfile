@@ -100,10 +100,14 @@ pipeline {
         
         stage('Vulnerability scanning') {
             steps {
-                sh 'trivy image dockerxzj/${IMAGE_TAG}'
+                sh '''
+                    docker run --rm \
+                        -v /var/run/docker.sock:/var/run/docker.sock \
+                        aquasec/trivy:latest \
+                        image dockerxzj/${IMAGE_TAG}
+                '''
             }
         }
-
         stage("Staging"){
             steps{
                 sh 'docker-compose up -d'
